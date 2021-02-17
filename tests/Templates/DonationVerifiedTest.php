@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inisiatif\Package\WhatsApp\Tests\Templates;
 
@@ -6,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use MessageBird\Objects\Conversation\Message;
 use Inisiatif\Package\WhatsApp\Templates\DonationVerified;
 use Inisiatif\Package\WhatsApp\Contracts\TemplateInterface;
-use Inisiatif\Package\WhatsApp\Templates\DonationConfirmation;
 
 final class DonationVerifiedTest extends TestCase
 {

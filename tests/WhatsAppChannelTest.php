@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Inisiatif\Package\WhatsApp\Tests;
 
@@ -25,7 +27,8 @@ final class WhatsAppChannelTest extends TestCase
 
         $channel = new WhatsAppChannel($client);
 
-        $channel->send([], new class extends Notification{});
+        $channel->send([], new class() extends Notification {
+        });
     }
 
     public function testCanSendConfirmationTemplate(): void
