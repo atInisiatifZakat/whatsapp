@@ -20,15 +20,14 @@ final class WhatsAppChannel
 
     private Dispatcher $dispatcher;
 
-    public function __construct(Client $client, ?Dispatcher $dispatcher = null)
+    public function __construct(Client $client, Dispatcher $dispatcher)
     {
         $this->client = $client;
-        $this->dispatcher = $dispatcher ?: new VoidEventDispatcher();
+        $this->dispatcher = $dispatcher;
     }
 
     /**
      * @param mixed $notifiable
-     * @noinspection PhpExpressionResultUnusedInspection
      */
     public function send($notifiable, Notification $notification): Conversation
     {
@@ -36,20 +35,20 @@ final class WhatsAppChannel
             throw new RuntimeException('Notification must me instanceof ' . WhatsAppAwareInterface::class);
         }
 
-        $message = $notification->toWhatsApp($notifiable);
+        $template = $notification->toWhatsApp($notifiable);
 
         try {
-            $conversation = $this->client->conversations->start($message);
+            $conversation = $this->client->conversations->start($template->message());
 
-            $this->dispatcher->dispatch(MessageWasSend::class, $conversation);
+            $this->dispatcher->dispatch(new MessageWasSend($template, $conversation, $notifiable));
 
             return $conversation;
         } catch (Exception $e) {
             $error = sprintf('%s: %s', get_class($e), $e->getMessage());
 
-            $this->dispatcher->dispatch(MessageWasFailed::class, [$message, $error]);
+            $this->dispatcher->dispatch(new MessageWasFailed($error, $template, $notifiable));
 
-            throw new RuntimeException($e->getMessage());
+            throw new RuntimeException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 }

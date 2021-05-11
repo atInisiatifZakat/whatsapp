@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Events\Dispatcher;
 use Inisiatif\Package\WhatsApp\WhatsAppChannel;
 use MessageBird\Objects\Conversation\Conversation;
+use Inisiatif\Package\WhatsApp\VoidEventDispatcher;
 use Inisiatif\Package\WhatsApp\Concerns\WhatsAppAwareInterface;
 
 final class WhatsAppChannelTest extends TestCase
@@ -25,7 +26,7 @@ final class WhatsAppChannelTest extends TestCase
 
         $client = new Client('FooBarSecret', $httpClient);
 
-        $channel = new WhatsAppChannel($client);
+        $channel = new WhatsAppChannel($client, new VoidEventDispatcher());
 
         $channel->send([], new class() extends Notification {
         });

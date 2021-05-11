@@ -9,14 +9,17 @@ use Inisiatif\Package\WhatsApp\Contracts\TemplateInterface;
 
 final class MessageWasSend
 {
+    public $notifiable;
+
     private Conversation $conversation;
 
     private TemplateInterface $template;
 
-    public function __construct(TemplateInterface $template, Conversation $conversation)
+    public function __construct(TemplateInterface $template, Conversation $conversation, $notifiable)
     {
         $this->conversation = $conversation;
         $this->template = $template;
+        $this->notifiable = $notifiable;
     }
 
     public function getConversation(): Conversation
@@ -27,5 +30,13 @@ final class MessageWasSend
     public function getTemplate(): TemplateInterface
     {
         return $this->template;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotifiable()
+    {
+        return $this->notifiable;
     }
 }
