@@ -10,7 +10,5 @@ interface TemplateInterface
 {
     public function message(): Message;
 
-    public function params(): array;
-
     public function number(): string;
 }

@@ -4,21 +4,25 @@ declare(strict_types=1);
 
 namespace Inisiatif\Package\WhatsApp\Templates;
 
+use Inisiatif\Package\WhatsApp\HSM\Component;
 use MessageBird\Objects\Conversation\Content;
 use MessageBird\Objects\Conversation\Message;
-use MessageBird\Objects\Conversation\HSM\Message as HSMMessage;
+use Inisiatif\Package\WhatsApp\HSM\MediaMessage;
 
-abstract class AbstractTemplate extends BaseTemplate
+abstract class AbstractMediaTemplate extends BaseTemplate
 {
-    abstract public function params(): array;
+    /**
+     * @return Component[]
+     */
+    abstract public function components(): array;
 
     protected function buildMessage(): Message
     {
-        $hsm = new HSMMessage();
+        $hsm = new MediaMessage();
         $hsm->namespace = 'be0ed813_b6f1_4da4_9d37_b2c2d125ff13';
         $hsm->templateName = $this->templateName();
         $hsm->language = $this->language();
-        $hsm->params = $this->params();
+        $hsm->components = $this->components();
 
         $content = new Content();
         $content->hsm = $hsm;
