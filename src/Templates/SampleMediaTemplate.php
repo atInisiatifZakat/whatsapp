@@ -7,7 +7,7 @@ namespace Inisiatif\Package\WhatsApp\Templates;
 use Inisiatif\Package\WhatsApp\HSM\Image;
 use Inisiatif\Package\WhatsApp\HSM\Media;
 use Inisiatif\Package\WhatsApp\HSM\Component;
-use MessageBird\Objects\Conversation\Message;
+use MessageBird\Objects\Conversation\SendMessage;
 
 final class SampleMediaTemplate extends AbstractMediaTemplate
 {
@@ -36,7 +36,7 @@ final class SampleMediaTemplate extends AbstractMediaTemplate
         return [$header];
     }
 
-    public function message(): Message
+    public function message(): SendMessage
     {
         return $this->buildMessage();
     }

@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace Inisiatif\Package\WhatsApp\Events;
 
-use MessageBird\Objects\Conversation\Conversation;
+use MessageBird\Objects\Conversation\SendMessageResult;
 use Inisiatif\Package\WhatsApp\Contracts\TemplateInterface;
 
 final class MessageWasSend
 {
     public $notifiable;
 
-    private Conversation $conversation;
-
     private TemplateInterface $template;
 
-    public function __construct(TemplateInterface $template, Conversation $conversation, $notifiable)
+    private SendMessageResult $messageResult;
+
+    public function __construct(TemplateInterface $template, SendMessageResult $messageResult, $notifiable)
     {
-        $this->conversation = $conversation;
         $this->template = $template;
         $this->notifiable = $notifiable;
+        $this->messageResult = $messageResult;
     }
 
-    public function getConversation(): Conversation
+    public function getMessageResult(): SendMessageResult
     {
-        return $this->conversation;
+        return $this->messageResult;
     }
 
     public function getTemplate(): TemplateInterface

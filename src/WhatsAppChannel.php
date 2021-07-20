@@ -9,9 +9,9 @@ use RuntimeException;
 use MessageBird\Client;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Events\Dispatcher;
-use MessageBird\Objects\Conversation\Conversation;
 use Inisiatif\Package\WhatsApp\Events\MessageWasSend;
 use Inisiatif\Package\WhatsApp\Events\MessageWasFailed;
+use MessageBird\Objects\Conversation\SendMessageResult;
 use Inisiatif\Package\WhatsApp\Concerns\WhatsAppAwareInterface;
 
 final class WhatsAppChannel
@@ -29,7 +29,7 @@ final class WhatsAppChannel
     /**
      * @param mixed $notifiable
      */
-    public function send($notifiable, Notification $notification): Conversation
+    public function send($notifiable, Notification $notification): SendMessageResult
     {
         if (! $notification instanceof WhatsAppAwareInterface) {
             throw new RuntimeException('Notification must me instanceof ' . WhatsAppAwareInterface::class);
@@ -38,11 +38,11 @@ final class WhatsAppChannel
         $template = $notification->toWhatsApp($notifiable);
 
         try {
-            $conversation = $this->client->conversations->start($template->message());
+            $result = $this->client->conversationSend->send($template);
 
-            $this->dispatcher->dispatch(new MessageWasSend($template, $conversation, $notifiable));
+            $this->dispatcher->dispatch(new MessageWasSend($template, $result, $notifiable));
 
-            return $conversation;
+            return $result;
         } catch (Exception $e) {
             $error = sprintf('%s: %s', get_class($e), $e->getMessage());
 

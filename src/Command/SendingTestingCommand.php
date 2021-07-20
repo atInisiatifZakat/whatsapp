@@ -7,6 +7,7 @@ namespace Inisiatif\Package\WhatsApp\Command;
 use Exception;
 use MessageBird\Client;
 use Illuminate\Console\Command;
+use MessageBird\Objects\Conversation\SendMessage;
 use Inisiatif\Package\WhatsApp\Templates\DonationVerified;
 use Inisiatif\Package\WhatsApp\Contracts\TemplateInterface;
 use Inisiatif\Package\WhatsApp\Templates\SampleMediaTemplate;
@@ -28,13 +29,15 @@ final class SendingTestingCommand extends Command
 
             $message = $this->makeTemplate()->message();
 
-            $conversation = $client->conversations->start($message);
+            if ($message instanceof SendMessage) {
+                $conversation = $client->conversationSend->send($message);
+            } else {
+                $conversation = $client->conversations->start($message);
+            }
 
             $this->info(sprintf(
-                'Sending message with template `%s` . [id: `%s`, status: `%s`]',
-                $template,
-                $conversation->id,
-                $conversation->status
+                'Sending message with template `%s` . ' . json_encode($conversation, JSON_PRETTY_PRINT),
+                $template
             ));
 
             return self::SUCCESS;

@@ -13,9 +13,23 @@ final class TestHttpClient extends Common\HttpClient
         switch ($resourceName) {
             case 'conversations/start':
                 return [[], [], $this->conversationsStart()];
+            case 'send':
+                return [[], [], $this->conversationsSend()];
             default:
                 return [];
         }
+    }
+
+    protected function conversationsSend(): string
+    {
+        return <<<JSON
+{
+  "message": {
+    "id": "2e15efafec384e1c82e9842075e87beb",
+    "status": "accepted"
+  }
+}
+JSON;
     }
 
     protected function conversationsStart(): string

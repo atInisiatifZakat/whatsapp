@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Inisiatif\Package\WhatsApp\Templates;
 
-use MessageBird\Objects\Conversation\Message;
+use MessageBird\Objects\Conversation\Content;
 use MessageBird\Objects\Conversation\HSM\Params;
+use MessageBird\Objects\Conversation\SendMessage;
 
 final class DonationConfirmation extends AbstractTemplate
 {
@@ -22,7 +23,7 @@ final class DonationConfirmation extends AbstractTemplate
         $this->amount = $amount;
     }
 
-    public function message(): Message
+    public function message(): SendMessage
     {
         return $this->buildMessage();
     }
@@ -46,5 +47,13 @@ final class DonationConfirmation extends AbstractTemplate
     protected function templateName(): string
     {
         return 'donation_confirmation_v1';
+    }
+
+    protected function buildMessage(): SendMessage
+    {
+        $content = new Content();
+        $content->hsm = $this->getHsmMessage();
+
+        return $this->getSendMessage($content);
     }
 }

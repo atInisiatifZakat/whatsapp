@@ -11,8 +11,8 @@ use PHPUnit\Framework\TestCase;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Events\Dispatcher;
 use Inisiatif\Package\WhatsApp\WhatsAppChannel;
-use MessageBird\Objects\Conversation\Conversation;
 use Inisiatif\Package\WhatsApp\VoidEventDispatcher;
+use MessageBird\Objects\Conversation\SendMessageResult;
 use Inisiatif\Package\WhatsApp\Concerns\WhatsAppAwareInterface;
 
 final class WhatsAppChannelTest extends TestCase
@@ -45,6 +45,6 @@ final class WhatsAppChannelTest extends TestCase
 
         $conversation = $channel->send([], new ConfirmationNotificationStub());
 
-        $this->assertInstanceOf(Conversation::class, $conversation);
+        $this->assertInstanceOf(SendMessageResult::class, $conversation);
     }
 }

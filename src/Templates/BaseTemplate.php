@@ -10,13 +10,13 @@ use Inisiatif\Package\WhatsApp\Contracts\TemplateInterface;
 
 abstract class BaseTemplate implements TemplateInterface
 {
-    abstract public function message(): Message;
+    abstract public function message();
 
     abstract public function number(): string;
 
     abstract protected function templateName(): string;
 
-    abstract protected function buildMessage(): Message;
+    abstract protected function buildMessage();
 
     protected function language(): Language
     {
