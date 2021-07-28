@@ -44,7 +44,7 @@ final class DonationConfirmation extends AbstractTemplate
         return [$name, $amount];
     }
 
-    protected function templateName(): string
+    public function templateName(): string
     {
         return 'donation_confirmation_v1';
     }

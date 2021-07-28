@@ -15,4 +15,6 @@ interface TemplateInterface
     public function message();
 
     public function number(): string;
+
+    public function templateName(): string;
 }

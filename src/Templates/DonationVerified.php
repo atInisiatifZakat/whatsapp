@@ -44,7 +44,7 @@ final class DonationVerified extends AbstractTemplate
         return [$amount, $name];
     }
 
-    protected function templateName(): string
+    public function templateName(): string
     {
         return 'donation_verified_v2';
     }

@@ -46,7 +46,7 @@ final class SampleMediaTemplate extends AbstractMediaTemplate
         return $this->to;
     }
 
-    protected function templateName(): string
+    public function templateName(): string
     {
         return 'update_payment_juni_2021';
     }
