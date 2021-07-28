@@ -15,10 +15,10 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
-        "illuminate/contracts": "^7.30|^8.26",
-        "illuminate/console": "^7.30|^8.26",
-        "illuminate/notifications": "^7.30|^8.26",
-        "illuminate/support": "^7.30|^8.26",
+        "illuminate/contracts": "^5.8|^6.0|^7.30|^8.26",
+        "illuminate/console": "^5.8|^6.0|^7.30|^8.26",
+        "illuminate/notifications": "^5.8|^6.0|^7.30|^8.26",
+        "illuminate/support": "^5.8|^6.0|^7.30|^8.26",
         "messagebird/php-rest-api": "^1.19",
         "webmozart/assert": "^1.9"
     },
