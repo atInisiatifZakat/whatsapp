@@ -38,7 +38,9 @@ final class WhatsAppChannel
         $template = $notification->toWhatsApp($notifiable);
 
         try {
-            $result = $this->client->conversationSend->send($template);
+            $result = $this->client->conversationSend->send(
+                $template->message()
+            );
 
             $this->dispatcher->dispatch(new MessageWasSend($template, $result, $notifiable));
 
