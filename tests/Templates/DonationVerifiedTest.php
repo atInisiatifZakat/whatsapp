@@ -23,6 +23,14 @@ final class DonationVerifiedTest extends TestCase
         $this->assertInstanceOf(SendMessage::class, $confirmation->message());
         $this->assertSame($to, $confirmation->number());
         $this->assertEquals($confirmation->message()->content->hsm->params, $confirmation->params());
-        $this->assertSame('donation_verified_v2', $confirmation->message()->content->hsm->templateName);
+        $this->assertSame('donation_verified_v4', $confirmation->message()->content->hsm->templateName);
+        $this->assertCount(5, $confirmation->message()->content->hsm->params);
+
+
+        $this->assertSame('zakat, infaq dan shodaqoh', $confirmation->message()->content->hsm->params[0]->default);
+        $this->assertSame('zakat, infaq dan shodaqoh', $confirmation->message()->content->hsm->params[1]->default);
+        $this->assertSame('1.000.000', $confirmation->message()->content->hsm->params[2]->default);
+        $this->assertSame('Foo Bar', $confirmation->message()->content->hsm->params[3]->default);
+        $this->assertSame('zakat, infaq dan shodaqoh', $confirmation->message()->content->hsm->params[4]->default);
     }
 }

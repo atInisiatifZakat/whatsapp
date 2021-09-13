@@ -16,11 +16,14 @@ final class DonationVerified extends AbstractTemplate
 
     private string $name;
 
-    public function __construct(string $to, string $amount, string $name)
+    private string $funding;
+
+    public function __construct(string $to, string $amount, string $name, string $funding = 'zakat, infaq dan shodaqoh')
     {
         $this->to = $to;
         $this->amount = $amount;
         $this->name = $name;
+        $this->funding = $funding;
     }
 
     public function message(): SendMessage
@@ -41,12 +44,15 @@ final class DonationVerified extends AbstractTemplate
         $name = new Params();
         $name->default = $this->name;
 
-        return [$amount, $name];
+        $funding = new Params();
+        $funding->default = $this->funding;
+
+        return [$funding, $funding, $amount, $name, $funding];
     }
 
     public function templateName(): string
     {
-        return 'donation_verified_v2';
+        return 'donation_verified_v4';
     }
 
     protected function buildMessage(): SendMessage
